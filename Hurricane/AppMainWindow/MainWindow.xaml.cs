@@ -40,7 +40,7 @@ namespace Hurricane
         public IWindowSkin SmartWindowSkin { get { return _smartWindowSkin ?? (_smartWindowSkin = new WindowSmartView()); } }
 
         private IWindowSkin _advancedWindowSkin;
-        public IWindowSkin AdvancedWindowSkin { get { return _advancedWindowSkin ?? (_advancedWindowSkin = new WindowAdvancedView()); } }
+        public IWindowSkin AdvancedWindowSkin { get { return _advancedWindowSkin ?? (_advancedWindowSkin = new MiniPlayerView()); } }
 
         #region Constructor & Load
 
@@ -538,7 +538,7 @@ namespace Hurricane
             _advancedWindowSkin.DisableWindow();
             bool isadvancedwindow = HostedWindow != _smartWindowSkin;
             _smartWindowSkin = new WindowSmartView();
-            _advancedWindowSkin = new WindowAdvancedView();
+            _advancedWindowSkin = new MiniPlayerView();
             ApplyHostWindow(isadvancedwindow ? _advancedWindowSkin : _smartWindowSkin, false);
 
             var outanimation = new ThicknessAnimation(new Thickness(-100, 0, 100, 0), new Thickness(0), TimeSpan.FromMilliseconds(500));

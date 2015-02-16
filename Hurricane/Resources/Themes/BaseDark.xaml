@@ -12,4 +12,5 @@
     <system:Boolean x:Key="LightPlaceHolder">True</system:Boolean>
     <system:Boolean x:Key="LightVolumeIcon">True</system:Boolean>
     <system:Boolean x:Key="UseDialogsForWhiteTheme">False</system:Boolean>
+    <SolidColorBrush x:Key="ThemeIconBrush" Color="#ff8b8b8b" />
 </ResourceDictionary>

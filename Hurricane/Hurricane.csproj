@@ -135,6 +135,9 @@
     <Compile Include="AppMainWindow\Messages\MessageDialog.cs" />
     <Compile Include="AppMainWindow\Messages\MessageManager.cs" />
     <Compile Include="AppMainWindow\Messages\ProgressDialog.cs" />
+    <Compile Include="AppMainWindow\WindowSkins\MiniPlayerView.xaml.cs">
+      <DependentUpon>MiniPlayerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Designer\Data\BaseThemeData.cs" />
     <Compile Include="Designer\Data\ColorThemeData.cs" />
     <Compile Include="Designer\Data\ISaveable.cs" />
@@ -411,6 +414,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AppMainWindow\MahAppsExtensions\Dialogs\EqualizerDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppMainWindow\WindowSkins\MiniPlayerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
