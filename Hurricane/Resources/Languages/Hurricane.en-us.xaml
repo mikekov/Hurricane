@@ -61,9 +61,9 @@
     <system:String x:Key="Playback">Playback</system:String>
     <system:String x:Key="Device">Device</system:String>
     <system:String x:Key="SampleSourceBitrate">Sample Source Bitrate</system:String>
-    <system:String x:Key="Samplerate">Samplerate</system:String>
+    <system:String x:Key="Samplerate">Sample Rate</system:String>
     <system:String x:Key="ShowMagicArrowBelowCursor">Show Magic Arrow directly under the cursor</system:String>
-    <system:String x:Key="DefaultSamplerate">(Take samplerate from track)</system:String>
+    <system:String x:Key="DefaultSamplerate">(Read from track)</system:String>
     <system:String x:Key="Language">Language</system:String>
 
     <system:String x:Key="Title">Title</system:String>
@@ -236,7 +236,7 @@
     <system:String x:Key="TrimTrackname">Trim search text</system:String>
     <system:String x:Key="ShowArtistAndTitle">Show artist and title in list</system:String>
     <system:String x:Key="Crossfade">Crossfade</system:String>
-    <system:String x:Key="Secounds">Secounds</system:String>
+    <system:String x:Key="Secounds">Seconds</system:String>
     <system:String x:Key="View">View</system:String>
     <system:String x:Key="BaseTheme">Base theme</system:String>
     <system:String x:Key="Latency">Latency</system:String>
