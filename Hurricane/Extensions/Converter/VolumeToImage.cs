@@ -37,4 +37,26 @@ namespace Hurricane.Extensions.Converter
             return Binding.DoNothing;
         }
     }
+
+    class VolumeToVectorImage : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            double volume = (double)value;
+
+            if (volume == 0)
+                return Application.Current.Resources["VectorVolumeMute"];
+            else if (volume <= 0.33333)
+                return Application.Current.Resources["VectorVolumeLow"];
+            else if (volume <= 0.66666)
+                return Application.Current.Resources["VectorVolumeMedium"];
+            else
+                return Application.Current.Resources["VectorVolumeLoud"];
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Binding.DoNothing;
+        }
+    }
 }

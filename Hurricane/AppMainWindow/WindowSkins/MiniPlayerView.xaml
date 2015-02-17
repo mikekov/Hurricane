@@ -23,6 +23,7 @@
                 <ResourceDictionary Source="/Resources/Styles/FavoriteToggleButton.xaml" />
                 <ResourceDictionary Source="/Resources/Styles/RoundButtons.xaml" />
                 <ResourceDictionary Source="/Resources/Styles/VectorMenuItem.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/ScrollBar.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -114,10 +115,7 @@
 
             <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="8,9,0,0">
                 <TextBlock Style="{StaticResource TextStyle}" FontSize="28" FontFamily="Segoe UI Light" Text="{Binding MusicManager.CSCoreEngine.CurrentTrackPosition, Converter={StaticResource FormatTimespan}}" />
-                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                    <TextBlock Style="{StaticResource TextStyle}" Text="-" />
-                    <TextBlock Style="{StaticResource TextStyle}" Text="{Binding MusicManager.CSCoreEngine.CurrentTrackTimeLeft, Converter={StaticResource FormatTimespan}}" />
-                </StackPanel>
+                <TextBlock Style="{StaticResource TextStyle}" Margin="10,0,0,0" Text="{Binding MusicManager.CSCoreEngine.CurrentTrackTimeLeft, Converter={StaticResource FormatTimespan}, ConverterParameter=Negative}" />
             </StackPanel>
 
             <ex:TrackImagePreseter Grid.Column="1" Track="{Binding MusicManager.CSCoreEngine.CurrentTrack}" Width="90" Height="90" Margin="0,2,0,0" ImageMargin="0,0,0,0" />
@@ -240,7 +238,7 @@
 
             <DockPanel Grid.Column="1" Margin="20,0,20,0">
                 <DockPanel.Resources>
-                    <converter:VolumeToImage x:Key="VolumeToImage" />
+                    <converter:VolumeToVectorImage x:Key="VolumeToImage" />
                 </DockPanel.Resources>
                 <Viewbox Width="17" Height="17" Margin="0,0,4,0" OpacityMask="Aqua">
                     <Viewbox.InputBindings>
@@ -266,7 +264,7 @@
         </Grid>
 
         <!-- playback position slider -->
-        <Grid Grid.Row="4" Height="20" Margin="0,3,0,2">
+        <Grid Grid.Row="4" Height="20" Margin="8,3,8,2">
             <Slider HorizontalAlignment="Stretch" IsMoveToPointEnabled="True" Maximum="{Binding MusicManager.CSCoreEngine.TrackLength}" Value="{Binding MusicManager.CSCoreEngine.Position}" ex:SliderExtensions.MoveToPointOnDrag="True">
                 <Slider.Style>
                     <Style TargetType="Slider" BasedOn="{StaticResource AdvancedTimelineSlider}">
@@ -374,6 +372,9 @@
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
+                    </Style>
+
+                    <Style TargetType="ScrollBar" BasedOn="{StaticResource FlatScrollBar}">
                     </Style>
                 </ListView.Resources>
 

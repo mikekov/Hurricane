@@ -8,7 +8,17 @@ namespace Hurricane.Extensions.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            TimeSpan duration = (TimeSpan)value;
+            var duration = (TimeSpan)value;
+            var time = DoConvert(duration);
+
+            if (parameter != null && (string)parameter == "Negative" && duration.Ticks > 0)
+                return '-' + time;
+
+            return time;
+        }
+
+        string DoConvert(TimeSpan duration)
+        {
             if (duration == TimeSpan.Zero) return "00:00";
 
             if (duration.Hours > 0 || duration.Days > 0)

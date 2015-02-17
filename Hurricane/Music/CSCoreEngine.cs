@@ -99,6 +99,7 @@ namespace Hurricane.Music
                     }
                 }
                 OnPropertyChanged("CurrentTrackPosition");
+                OnPropertyChanged("CurrentTrackTimeLeft");
                 if (PositionChanged != null) PositionChanged(this, new PositionChangedEventArgs((int)this.CurrentTrackPosition.TotalSeconds, (int)this.CurrentTrackLength.TotalSeconds));
             }
         }
@@ -149,6 +150,16 @@ namespace Hurricane.Music
                 {
                     return TimeSpan.Zero; //Sometimes it crashes
                 }
+            }
+        }
+
+        public TimeSpan CurrentTrackTimeLeft
+        {
+            get
+            {
+                var length = CurrentTrackLength;
+                var position = CurrentTrackPosition;
+                return length >= position ? length - position : TimeSpan.Zero;
             }
         }
 
@@ -341,6 +352,7 @@ namespace Hurricane.Music
             OnPropertyChanged("CurrentTrackLength");
             OnPropertyChanged("Position");
             OnPropertyChanged("CurrentTrackPosition");
+            OnPropertyChanged("CurrentTrackTimeLeft");
             CurrentStateChanged();
         }
 
@@ -391,6 +403,7 @@ namespace Hurricane.Music
         {
             OnPropertyChanged("Position");
             OnPropertyChanged("CurrentTrackPosition");
+            OnPropertyChanged("CurrentTrackTimeLeft");
             var secounds = (int)CurrentTrackPosition.TotalSeconds;
             var totalsecounds = (int)CurrentTrackLength.TotalSeconds;
             if (PositionChanged != null)
