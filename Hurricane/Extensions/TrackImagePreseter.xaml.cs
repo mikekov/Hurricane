@@ -70,5 +70,11 @@ namespace Hurricane.Extensions
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public Thickness ImageMargin
+        {
+            get { return _border.Margin; }
+            set { _border.Margin = value; }
+        }
     }
 }

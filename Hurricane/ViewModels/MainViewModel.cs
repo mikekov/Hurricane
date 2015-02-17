@@ -721,5 +721,17 @@ namespace Hurricane.ViewModels
         {
             get { return playlistListDropHandler ?? (playlistListDropHandler = new PlaylistListDropHandler()); }
         }
+
+        private RelayCommand _opensettings;
+        public RelayCommand OpenSettings
+        {
+            get
+            {
+                return _opensettings ?? (_opensettings = new RelayCommand(parameter => {
+                    SettingsWindow window = new SettingsWindow() { Owner = _baseWindow };
+                    window.ShowDialog();
+                }));
+            }
+        }
     }
 }

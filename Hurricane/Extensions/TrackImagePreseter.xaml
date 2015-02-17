@@ -9,9 +9,9 @@
              d:DesignHeight="180" d:DesignWidth="180" x:Name="UserControl">
     <Border BorderThickness="0" Margin="10" Background="White">
         <Border.Effect>
-            <DropShadowEffect BlurRadius="4" ShadowDepth="0" Direction="0" Opacity="0.4" Color="#FFD1D1D1" />
+            <DropShadowEffect BlurRadius="4" ShadowDepth="0" Direction="0" Opacity="0.4" Color="#2f000000" />
         </Border.Effect>
-        <Border Margin="3" Background="{DynamicResource PicturePreviewBackgroundBrush}">
+        <Border x:Name="_border" Margin="3" Background="{DynamicResource PicturePreviewBackgroundBrush}">
             <Grid>
                 <Grid>
                     <Path Data="{StaticResource VectorMusic}" Fill="{DynamicResource PicturePreviewForegroundBrush}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Stretch="UniformToFill" Margin="45">

@@ -35,6 +35,11 @@
                 <Setter Property="Foreground" Value="{DynamicResource ThemeTextBrush}" />
             </Style>
 
+            <Style x:Key="TinyText" TargetType="TextBlock" BasedOn="{StaticResource TextStyle}">
+                <Setter Property="FontSize" Value="9" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+            </Style>
+
             <Style TargetType="{x:Type Button}" x:Key="CaptionButtonStyle">
                 <Setter Property="Template">
                     <Setter.Value>
@@ -115,15 +120,15 @@
                 </StackPanel>
             </StackPanel>
 
-            <ex:TrackImagePreseter Grid.Column="1" Track="{Binding MusicManager.CSCoreEngine.CurrentTrack}" Width="90" Height="90" Margin="0,2,0,0" />
+            <ex:TrackImagePreseter Grid.Column="1" Track="{Binding MusicManager.CSCoreEngine.CurrentTrack}" Width="90" Height="90" Margin="0,2,0,0" ImageMargin="0,0,0,0" />
 
             <StackPanel Grid.Column="2" Orientation="Vertical" VerticalAlignment="Center" Margin="8,10,8,0">
                 <TextBlock Style="{StaticResource TextStyle}" Text="{Binding MusicManager.CSCoreEngine.CurrentTrack.Artist}" TextTrimming="CharacterEllipsis" />
                 <TextBlock Style="{StaticResource TextStyle}" Text="{Binding MusicManager.CSCoreEngine.CurrentTrack.Title}" TextTrimming="CharacterEllipsis" Margin="0,1" />
                 <StackPanel Orientation="Horizontal" Margin="0,1,0,0">
-                    <TextBlock Style="{StaticResource TextStyle}" FontSize="9" Text="{Binding MusicManager.CSCoreEngine.CurrentTrack.Extension}" />
-                    <TextBlock Style="{StaticResource TextStyle}" FontSize="9" Text="{Binding MusicManager.CSCoreEngine.CurrentTrack.kbps}" Margin="6,0,0,0" />
-                    <TextBlock Style="{StaticResource TextStyle}" FontSize="9" Text=" kbps" Margin="0" />
+                    <TextBlock Style="{StaticResource TinyText}" Text="{Binding MusicManager.CSCoreEngine.CurrentTrack.Extension}" />
+                    <TextBlock Style="{StaticResource TinyText}" Text="{Binding MusicManager.CSCoreEngine.CurrentTrack.kbps}" Margin="6,0,0,0" />
+                    <TextBlock Style="{StaticResource TinyText}" Text=" kbps" Margin="0" />
                 </StackPanel>
             </StackPanel>
         </Grid>
