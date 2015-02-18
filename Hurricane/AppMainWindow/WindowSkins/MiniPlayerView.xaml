@@ -264,7 +264,7 @@
         </Grid>
 
         <!-- playback position slider -->
-        <Grid Grid.Row="4" Height="20" Margin="8,3,8,2">
+        <Grid Grid.Row="4" Height="20" Margin="6,3,6,2">
             <Slider HorizontalAlignment="Stretch" IsMoveToPointEnabled="True" Maximum="{Binding MusicManager.CSCoreEngine.TrackLength}" Value="{Binding MusicManager.CSCoreEngine.Position}" ex:SliderExtensions.MoveToPointOnDrag="True">
                 <Slider.Style>
                     <Style TargetType="Slider" BasedOn="{StaticResource AdvancedTimelineSlider}">
