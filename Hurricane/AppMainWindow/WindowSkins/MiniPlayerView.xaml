@@ -256,7 +256,7 @@
                     </Viewbox>
                 </ToggleButton>
                 <ToggleButton Style="{StaticResource RoundToggleButton}" Width="24" Height="24" Focusable="False" Margin="5,0,0,0" x:Name="tbtn_repeat" IsChecked="{Binding MusicManager.IsLoopEnabled}">
-                    <Viewbox Stretch="UniformToFill" Margin="6">
+                    <Viewbox Margin="5">
                         <Path Data="{StaticResource VectorRepeat}" Style="{StaticResource TogglePath}" />
                     </Viewbox>
                 </ToggleButton>
@@ -308,7 +308,6 @@
                     <KeyBinding Key="F3" Command="{Binding OpenTagEditor}" />
                 </ListView.InputBindings>
                 <ListView.Resources>
-                    <converter:TrueFalseValueConverter x:Key="boldifplaying" FalseValue="Normal" TrueValue="Bold" />
                     <ContextMenu x:Key="FileContextMenu" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView}}, Path=DataContext}">
                         <MenuItem Header="{DynamicResource Play}" Command="{Binding MusicManager.Commands.PlaySelectedTrack}" IsEnabled="{Binding MusicManager.SelectedTrack.TrackExists}" InputGestureText="Enter" />
                         <Separator />
@@ -374,8 +373,9 @@
                         </Setter>
                     </Style>
 
-                    <Style TargetType="ScrollBar" BasedOn="{StaticResource FlatScrollBar}">
-                    </Style>
+                    <Style TargetType="ScrollBar" BasedOn="{StaticResource FlatScrollBar}" />
+
+                    <Style TargetType="ScrollViewer" BasedOn="{StaticResource ScrollViewerFadeScrollBar}" />
                 </ListView.Resources>
 
                 <ListView.ItemContainerStyle>
