@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Input;
 using CSCore.Codecs;
 using Hurricane.DragDrop;
+using Hurricane.MagicArrow.DockManager;
 using Hurricane.Music;
 using Hurricane.Music.Download;
 using Hurricane.Music.MusicDatabase.EventArgs;
@@ -20,6 +21,7 @@ using Hurricane.ViewModelBase;
 using Hurricane.Views;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Win32;
+using TagLib.IFD.Entries;
 using WPFFolderBrowser;
 using QueueManager = Hurricane.Views.QueueManagerWindow;
 
@@ -328,11 +330,12 @@ namespace Hurricane.ViewModels
                 return _addfilestoplaylist ?? (_addfilestoplaylist = new RelayCommand(async parameter =>
                 {
                     if (!MusicManager.SelectedPlaylist.CanEdit) return;
+
                     var ofd = new OpenFileDialog
                     {
                         CheckFileExists = true,
                         Title = Application.Current.Resources["SelectedFiles"].ToString(),
-                        Filter = CodecFactory.SupportedFilesFilterEn,
+                        Filter = string.Format("{0}|{1};{2}|{3}|*.*", Application.Current.Resources["SupportedFiles"], GeneralHelper.GetFileDialogFilterFromArray(CodecFactory.Instance.GetSupportedFileExtensions()), GeneralHelper.GetFileDialogFilterFromArray(Playlists.GetSupportedFileExtensions()), Application.Current.Resources["AllFiles"]),
                         Multiselect = true
                     };
                     if (ofd.ShowDialog(_baseWindow) == true)
@@ -476,8 +479,7 @@ namespace Hurricane.ViewModels
             {
                 return _openupdater ?? (_openupdater = new RelayCommand(parameter =>
                 {
-                    UpdateWindow window = new UpdateWindow(Updater) { Owner = _baseWindow };
-                    window.ShowDialog();
+                    _baseWindow.ShowUpdateDialog(Updater);
                 }));
             }
         }
@@ -663,6 +665,48 @@ namespace Hurricane.ViewModels
                     HurricaneSettings.Instance.Save();
                     await controller.CloseAsync();
                 }));
+            }
+        }
+
+        private RelayCommand _moveLeftCommand;
+        public RelayCommand MoveLeftCommand
+        {
+            get
+            {
+                return _moveLeftCommand ?? (_moveLeftCommand = new RelayCommand(parameter =>
+                {
+                    MoveWindow(true);
+                }));
+            }
+        }
+
+        private RelayCommand _moveRightCommand;
+        public RelayCommand MoveRightCommand
+        {
+            get
+            {
+                return _moveRightCommand ?? (_moveRightCommand = new RelayCommand(parameter =>
+                {
+                    MoveWindow(false);
+                }));
+            }
+        }
+
+        private void MoveWindow(bool moveLeft)
+        {
+            var dockmanager = _baseWindow.MagicArrow.DockManager;
+            if (dockmanager.CurrentSide == DockingSide.None)
+            {
+                dockmanager.CurrentSide = moveLeft ? DockingSide.Left : DockingSide.Right;
+                dockmanager.ApplyCurrentSide();
+                _baseWindow.RefreshHostWindow(true);
+            }
+            if (dockmanager.CurrentSide == (moveLeft ? DockingSide.Right : DockingSide.Left))
+            {
+                dockmanager.CurrentSide = DockingSide.None;
+                dockmanager.ApplyCurrentSide();
+                _baseWindow.RefreshHostWindow(true);
+                _baseWindow.CenterWindowOnScreen();
             }
         }
         #endregion

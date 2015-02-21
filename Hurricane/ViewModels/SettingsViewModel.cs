@@ -1,13 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using CSCore.SoundOut;
 using Hurricane.Music;
 using Hurricane.Music.Data;
 using Hurricane.Settings;
 using Hurricane.Settings.RegistryManager;
 using Hurricane.Settings.Themes;
 using Hurricane.Settings.Themes.Background;
+using Hurricane.Settings.Themes.Visual;
+using Hurricane.Settings.Themes.Visual.BaseThemes;
 using Hurricane.ViewModelBase;
 using Microsoft.Win32;
 using WPFFolderBrowser;
@@ -26,6 +30,8 @@ namespace Hurricane.ViewModels
         private SettingsViewModel()
         {
             RegistryManager = new RegistryManager(); //import for shortcut
+            _appliedBaseTheme = Config.ApplicationDesign.BaseTheme;
+            _appliedColorTheme = Config.ApplicationDesign.ColorTheme;
         }
 
         public void Load()
@@ -143,6 +149,33 @@ namespace Hurricane.ViewModels
             }
         }
 
+        private IBaseTheme _appliedBaseTheme;
+        private IColorTheme _appliedColorTheme;
+        public bool CanApplyNewTheme
+        {
+            get { return !_appliedColorTheme.Equals(Config.ApplicationDesign.ColorTheme) || !_appliedBaseTheme.Equals(Config.ApplicationDesign.BaseTheme); }
+        }
+
+        public IBaseTheme SelectedBaseTheme
+        {
+            get { return Config.ApplicationDesign.BaseTheme; }
+            set
+            {
+                Config.ApplicationDesign.BaseTheme = value;
+                OnPropertyChanged("CanApplyNewTheme");
+            }
+        }
+
+        public IColorTheme SelectedColorTheme
+        {
+            get { return Config.ApplicationDesign.ColorTheme; }
+            set
+            {
+                Config.ApplicationDesign.ColorTheme = value;
+                OnPropertyChanged("CanApplyNewTheme");
+            }
+        }
+
         private RelayCommand _selectBackground;
         public RelayCommand SelectBackground
         {
@@ -153,9 +186,9 @@ namespace Hurricane.ViewModels
                     var ofd = new OpenFileDialog
                     {
                         Filter = string.Format("{0}|{4};{5}|{1}|{4}|{2}|{5}|{3}|*.*",
-                            Application.Current.Resources["AllValidFiles"],
-                            Application.Current.Resources["AllPictureFiles"],
-                            Application.Current.Resources["AllVideoFiles"],
+                            Application.Current.Resources["SupportedFiles"],
+                            Application.Current.Resources["PictureFiles"],
+                            Application.Current.Resources["VideoFiles"],
                             Application.Current.Resources["AllFiles"],
                             "*.bmp;*.jpg;*.jpeg;*.png;*.tif;*.tiff;*.gif",
                             "*.mp4;*.wmv")
@@ -192,8 +225,24 @@ namespace Hurricane.ViewModels
                 {
                     await BaseWindow.MoveOut();
                     ApplicationThemeManager.Instance.Apply(Config.ApplicationDesign);
+                    _appliedBaseTheme = Config.ApplicationDesign.BaseTheme;
+                    _appliedColorTheme = Config.ApplicationDesign.ColorTheme;
                     await BaseWindow.ResetAndMoveIn();
                 }));
+            }
+        }
+
+        #endregion
+
+        #region Behaviour
+
+        public bool ShowProgressInTaskbar
+        {
+            get { return Config.ShowProgressInTaskbar; }
+            set
+            {
+                Config.ShowProgressInTaskbar = value;
+                BaseWindow.RefreshTaskbarInfo(MainViewModel.Instance.MusicManager.CSCoreEngine.IsPlaying ? PlaybackState.Playing : PlaybackState.Paused);
             }
         }
 

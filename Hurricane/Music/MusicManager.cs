@@ -98,8 +98,6 @@ namespace Hurricane.Music
 
         public QueueManager Queue { get; set; }
 
-        public TcpServer ApiServer { get; set; }
-
         private DownloadManager _downloadManager;
         public DownloadManager DownloadManager
         {
@@ -149,9 +147,6 @@ namespace Hurricane.Music
             Random = new Random();
             Lasttracks = new List<TrackPlaylistPair>();
             Queue = new QueueManager();
-
-            ApiServer = new TcpServer(this);
-            if (HurricaneSettings.Instance.Config.ApiIsEnabled) ApiServer.StartListening();
             DownloadManager = new DownloadManager();
         }
 
@@ -254,12 +249,12 @@ namespace Hurricane.Music
         public async void GoForward()
         {
             if (CurrentPlaylist == null || CurrentPlaylist.Tracks.Count == 0) return;
-            PlayableBase nexttrack;
+            PlayableBase nextTrack;
 
             if (Queue.HasTracks)
             {
                 var tuple = Queue.PlayNextTrack();
-                nexttrack = tuple.Item1;
+                nextTrack = tuple.Item1;
                 CurrentPlaylist = tuple.Item2;
             }
             else
@@ -270,9 +265,8 @@ namespace Hurricane.Music
                 {
                     if (IsShuffleEnabled)
                     {
-                        var nextTrack = CurrentPlaylist.GetRandomTrack(CSCoreEngine.CurrentTrack);
+                        nextTrack = CurrentPlaylist.GetRandomTrack(CSCoreEngine.CurrentTrack);
                         if (nextTrack == null) return;
-                        nexttrackindex = CurrentPlaylist.Tracks.IndexOf(nextTrack);
                     }
                     else
                     {
@@ -284,12 +278,16 @@ namespace Hurricane.Music
                             if (CurrentPlaylist.Tracks[nexttrackindex].TrackExists)
                                 break;
                         }
+                        nextTrack = CurrentPlaylist.Tracks[nexttrackindex];
                     }
                 }
-                nexttrack = CurrentPlaylist.Tracks[nexttrackindex];
+                else
+                {
+                    return;
+                }
             }
 
-            if (await CSCoreEngine.OpenTrack(nexttrack))
+            if (await CSCoreEngine.OpenTrack(nextTrack))
                 CSCoreEngine.TogglePlayPause();
         }
 
@@ -393,7 +391,6 @@ namespace Hurricane.Music
             if (disposing)
             {
                 CSCoreEngine.Dispose();
-                ApiServer.Dispose();
             }
         }
 
