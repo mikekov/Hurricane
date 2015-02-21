@@ -284,8 +284,8 @@
     <system:String x:Key="SoundCloudLink">SoundCloud Link</system:String>
     
     <!-- 0.3.2 -->
-    <system:String x:Key="Background">Hintergrundbild</system:String>
-    <system:String x:Key="AllPictureFiles">Alle Bilddateien</system:String>
+    <system:String x:Key="Background">Hintergrund</system:String>
+    <system:String x:Key="PictureFiles">Alle Bilddateien</system:String>
     <system:String x:Key="MinimizeToTray">In den Tray minimieren</system:String>
     <system:String x:Key="NotifyIfMinimizeToTray">Benachrichtigung anzeigen, wenn in den Tray minimiert wird</system:String>
     <system:String x:Key="MinimizeToTrayNotification">Hurricane wurde in den Tray minimiert und kann durch einen Doppelklick auf das Icon wiederhergestellt werden</system:String>
@@ -303,12 +303,12 @@
     <system:String x:Key="Thumbnail">Vorschaubild</system:String>
     <system:String x:Key="No2">Kein</system:String>
     <system:String x:Key="Include">Enthalten</system:String>
-    <system:String x:Key="AudioVisualisation">Audio Visualisierung</system:String>
+    <system:String x:Key="AudioVisualisation">Audiovisualisierung</system:String>
     <system:String x:Key="Skin">Skin</system:String>
     <system:String x:Key="Default">Standard</system:String>
     <system:String x:Key="Custom">Eigene</system:String>
-    <system:String x:Key="AllValidFiles">Alle erlaubten Dateien</system:String>
-    <system:String x:Key="AllVideoFiles">Alle Videodateien</system:String>
+    <system:String x:Key="SupportedFiles">Erlaubte Dateien</system:String>
+    <system:String x:Key="VideoFiles">Alle Videodateien</system:String>
     <system:String x:Key="TabControlTransition">Hauptmenü Übergangsanimation</system:String>
     <system:String x:Key="Left">Links</system:String>
     <system:String x:Key="Right">Rechts</system:String>
@@ -316,4 +316,6 @@
     <system:String x:Key="Down">Unten</system:String>
     <system:String x:Key="Fade">Überblenden</system:String>
     <system:String x:Key="None">Keine</system:String>
+    <system:String x:Key="Path">Pfad</system:String>
+    <system:String x:Key="ShowProgressInTaskbar">Fortschritt in Taskbar anzeigen</system:String>
 </ResourceDictionary>
