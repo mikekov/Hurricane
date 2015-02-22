@@ -346,6 +346,8 @@
     <Compile Include="Settings\Themes\ApplicationThemeManager.cs" />
     <Compile Include="Settings\Themes\Visual\ColorThemes\ColorThemeBase.cs" />
     <Compile Include="Settings\Themes\Visual\ColorThemes\CustomColorTheme.cs" />
+    <Compile Include="Settings\Themes\Visual\ISkin.cs" />
+    <Compile Include="Settings\Themes\Visual\Skin.cs" />
     <Compile Include="Settings\Themes\Visual\ThemeBase.cs" />
     <Compile Include="Settings\Themes\ApplicationDesign.cs" />
     <Compile Include="Settings\UpdateService.cs" />

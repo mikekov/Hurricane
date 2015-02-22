@@ -4,9 +4,11 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using Hurricane.AppMainWindow.WindowSkins;
 using Hurricane.Designer.Data;
 using Hurricane.Settings.Themes.AudioVisualisation;
 using Hurricane.Settings.Themes.AudioVisualisation.DefaultAudioVisualisation;
+using Hurricane.Settings.Themes.Visual;
 using Hurricane.Settings.Themes.Visual.BaseThemes;
 using Hurricane.Settings.Themes.Visual.ColorThemes;
 using MahApps.Metro;
@@ -28,6 +30,7 @@ namespace Hurricane.Settings.Themes
         private ApplicationThemeManager()
         {
             _loadedResources = new Dictionary<string, ResourceDictionary>();
+            Refresh();
         }
 
         #endregion
@@ -66,6 +69,20 @@ namespace Hurricane.Settings.Themes
             {
                 return _audioVisualisations;
             }
+        }
+
+        private ObservableCollection<ISkin> _skins;
+        public ObservableCollection<ISkin> Skins
+        {
+            get
+            {
+                return _skins;
+            }
+        }
+
+        public static ISkin DefaultSkin
+        {
+            get { return Instance.Skins.First(s => s.Name == "Default skin"); }
         }
 
         public void Refresh()
@@ -131,6 +148,23 @@ namespace Hurricane.Settings.Themes
                     _audioVisualisations.Add(new CustomAudioVisualisation { FileName = file.Name });
                 }
             }
+
+            var skin_types = typeof(ApplicationThemeManager).Assembly.GetTypes().Where(t => t.GetInterfaces().Contains(typeof(IWindowSkin)));
+            var skins = new List<Visual.ISkin>();
+            foreach (var skin in skin_types)
+            {
+                var attribs = skin.GetCustomAttributes(typeof(Hurricane.AppMainWindow.WindowSkins.WindowSkinAttribute), false);
+                if (attribs.Length > 0)
+                {
+                    var attribute = (Hurricane.AppMainWindow.WindowSkins.WindowSkinAttribute)(attribs.First());
+#if DEBUG
+#endif
+                    skins.Add(new Hurricane.Settings.Themes.Visual.Skin(attribute.Name, attribute.Name, skin));
+                }
+            }
+
+            skins.Sort((s1, s2) => s1.TranslatedName.CompareTo(s2.TranslatedName));
+            _skins = new ObservableCollection<Visual.ISkin>(skins);
         }
 
         public ThemePack GetThemePack(string name)

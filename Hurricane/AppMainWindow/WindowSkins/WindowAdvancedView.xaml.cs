@@ -11,6 +11,7 @@ namespace Hurricane.AppMainWindow.WindowSkins
     /// <summary>
     /// Interaction logic for WindowAdvancedView.xaml
     /// </summary>
+    [WindowSkin("Default skin")]
     public partial class WindowAdvancedView : IWindowSkin
     {
         public WindowAdvancedView()

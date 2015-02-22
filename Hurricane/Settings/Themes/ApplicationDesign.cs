@@ -48,6 +48,17 @@ namespace Hurricane.Settings.Themes
             }
         }
 
+        ISkin current_skin_;
+        [XmlIgnore]
+        public ISkin SelectedSkin
+        {
+            get { return current_skin_; }
+            set
+            {
+                current_skin_ = value;
+            }
+        }
+
         public void SetStandard()
         {
             var themeManager = ApplicationThemeManager.Instance;
@@ -55,6 +66,8 @@ namespace Hurricane.Settings.Themes
             BaseTheme = themeManager.BaseThemes.First(x => x.Name == "BaseLight");
             ApplicationBackground = null;
             AudioVisualisation = DefaultAudioVisualisation.GetDefault();
+            SelectedSkin = ApplicationThemeManager.DefaultSkin;
+            System.Diagnostics.Debug.Assert(SelectedSkin != null, "default skin not found");
         }
 
         #region Workaround for serializing interfaces
@@ -143,6 +156,18 @@ namespace Hurricane.Settings.Themes
                 {
                     AudioVisualisation = ApplicationThemeManager.Instance.GetThemePack(((ThemePack) value).FileName);
                 }
+            }
+        }
+
+        [XmlElement("Skin", Type = typeof(string))]
+        public string SerializableSkin
+        {
+            get { return current_skin_ != null ? current_skin_.Name : string.Empty; }
+            set
+            {
+                current_skin_ = ApplicationThemeManager.Instance.Skins.FirstOrDefault(s => s.Name == value);
+                if (current_skin_ == null)
+                    current_skin_ = ApplicationThemeManager.DefaultSkin;
             }
         }
 

@@ -20,6 +20,7 @@ namespace Hurricane.AppMainWindow.WindowSkins
     /// <summary>
     /// Interaction logic for MiniPlayerView.xaml
     /// </summary>
+    [WindowSkin("Mini player")]
     public partial class MiniPlayerView : IWindowSkin
     {
         public MiniPlayerView()

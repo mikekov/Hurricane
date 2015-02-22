@@ -16,4 +16,18 @@ namespace Hurricane.AppMainWindow.WindowSkins
 
         WindowSkinConfiguration Configuration { get; set; }
     }
+
+    public class WindowSkinAttribute : Attribute
+    {
+        public WindowSkinAttribute(string name)
+        {
+            Name = name;
+        }
+
+        public string Name
+        {
+            get;
+            private set;
+        }
+    }
 }

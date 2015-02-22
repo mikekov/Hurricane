@@ -40,7 +40,7 @@ namespace Hurricane
         public IWindowSkin SmartWindowSkin { get { return _smartWindowSkin ?? (_smartWindowSkin = new WindowSmartView()); } }
 
         private IWindowSkin _advancedWindowSkin;
-        public IWindowSkin AdvancedWindowSkin { get { return _advancedWindowSkin ?? (_advancedWindowSkin = new MiniPlayerView()); } }
+        public IWindowSkin AdvancedWindowSkin { get { return _advancedWindowSkin ?? (_advancedWindowSkin = CreateCurrentSkin()); } }
 
         #region Constructor & Load
 
@@ -96,6 +96,14 @@ namespace Hurricane
 
             MagicArrow.DockManager.CurrentSide = appsettings.ApplicationState.CurrentSide;
             InitializeMessages();
+        }
+
+        IWindowSkin CreateCurrentSkin()
+        {
+            var skin = HurricaneSettings.Instance.Config.ApplicationDesign.SelectedSkin;
+            if (skin == null)
+                skin = Hurricane.Settings.Themes.ApplicationThemeManager.DefaultSkin;
+            return skin.CreateSkin();
         }
 
         public void CenterWindowOnScreen()
@@ -574,7 +582,7 @@ namespace Hurricane
             _advancedWindowSkin.DisableWindow();
             bool isadvancedwindow = HostedWindow != _smartWindowSkin;
             _smartWindowSkin = new WindowSmartView();
-            _advancedWindowSkin = new MiniPlayerView();
+            _advancedWindowSkin = CreateCurrentSkin();
             ApplyHostWindow(isadvancedwindow ? _advancedWindowSkin : _smartWindowSkin, false);
 
             var outanimation = new ThicknessAnimation(new Thickness(-100, 0, 100, 0), new Thickness(0), TimeSpan.FromMilliseconds(500));

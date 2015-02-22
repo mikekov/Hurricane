@@ -232,6 +232,27 @@ namespace Hurricane.ViewModels
             }
         }
 
+        public string SelectedSkin
+        {
+            get { return Config.ApplicationDesign.SelectedSkin != null ? Config.ApplicationDesign.SelectedSkin.Name : ApplicationThemeManager.DefaultSkin.Name; }
+            set
+            {
+                var skin = ApplicationThemeManager.Instance.Skins.First(s => s.Name == value);
+                if (skin.Name != SelectedSkin)
+                {
+                    //todo: switch skins on the fly
+
+
+                    Config.ApplicationDesign.SelectedSkin = skin;
+                }
+            }
+        }
+
+        public IEnumerable<string> Skins
+        {
+            get { return ApplicationThemeManager.Instance.Skins.Select(s => s.Name); }
+        }
+
         #endregion
 
         #region Behaviour
