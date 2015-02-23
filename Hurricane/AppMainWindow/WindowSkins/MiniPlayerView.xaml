@@ -218,12 +218,12 @@
             </Grid.ColumnDefinitions>
             <Grid.Resources>
                 <Style TargetType="Path" x:Key="TogglePath">
-                    <Setter Property="Fill" Value="{StaticResource BlackBrush}" />
-                    <Style.Triggers>
+                    <Setter Property="Fill" Value="{Binding RelativeSource={RelativeSource AncestorType=ToggleButton},Path=Foreground}" />
+                    <!--<Style.Triggers>
                         <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource AncestorType=ToggleButton}}" Value="True">
                             <Setter Property="Fill" Value="{StaticResource GrayBrush10}" />
                         </DataTrigger>
-                    </Style.Triggers>
+                    </Style.Triggers>-->
                 </Style>
                 <Style TargetType="Path" x:Key="ButtonPath">
                     <Setter Property="Fill" Value="{StaticResource BlackBrush}" />
@@ -250,12 +250,12 @@
             </DockPanel>
 
             <StackPanel Grid.Column="2" Orientation="Horizontal">
-                <ToggleButton Style="{StaticResource RoundToggleButton}" Width="24" Height="24" Focusable="False" Margin="5,0,0,0" x:Name="tbtn_random" IsChecked="{Binding MusicManager.IsShuffleEnabled}">
+                <ToggleButton Style="{StaticResource RoundToggleButton2}" Width="24" Height="24" Focusable="False" Margin="5,0,0,0" IsChecked="{Binding MusicManager.IsShuffleEnabled}">
                     <Viewbox Margin="5">
                         <Path Data="{StaticResource VectorRandom}" Style="{StaticResource TogglePath}" />
                     </Viewbox>
                 </ToggleButton>
-                <ToggleButton Style="{StaticResource RoundToggleButton}" Width="24" Height="24" Focusable="False" Margin="5,0,0,0" x:Name="tbtn_repeat" IsChecked="{Binding MusicManager.IsLoopEnabled}">
+                <ToggleButton Style="{StaticResource RoundToggleButton2}" Width="24" Height="24" Focusable="False" Margin="5,0,0,0" IsChecked="{Binding MusicManager.IsLoopEnabled}">
                     <Viewbox Margin="5">
                         <Path Data="{StaticResource VectorRepeat}" Style="{StaticResource TogglePath}" />
                     </Viewbox>

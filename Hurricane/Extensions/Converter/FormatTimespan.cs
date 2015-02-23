@@ -11,7 +11,7 @@ namespace Hurricane.Extensions.Converter
             var duration = (TimeSpan)value;
             var time = DoConvert(duration);
 
-            if (parameter != null && (string)parameter == "Negative" && duration.Ticks > 0)
+            if (parameter != null && (string)parameter == "Negative" && duration.TotalSeconds > 0)
                 return '-' + time;
 
             return time;

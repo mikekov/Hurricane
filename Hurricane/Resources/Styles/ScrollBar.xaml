@@ -3,10 +3,10 @@
     <!-- Scrollbar colors -->
 
     <SolidColorBrush x:Key="NormalBrush" Color="Transparent" />
-    <SolidColorBrush x:Key="PressedBrush" Color="{Binding Source={StaticResource DarkColorBrush}, Path=Color}" />
+    <SolidColorBrush x:Key="PressedBrush" Color="{Binding Source={StaticResource GrayBrush2}, Path=Color}" />
     <SolidColorBrush x:Key="DisabledForegroundBrush" Color="{Binding Source={StaticResource GrayBrush8}, Path=Color}" />
-    <SolidColorBrush x:Key="GlyphBrush" Color="{Binding Source={StaticResource GrayBrush2}, Path=Color}" />
-    <SolidColorBrush x:Key="GlyphMouseOver" Color="{Binding Source={StaticResource NormalColorBrush}, Path=Color}" />
+    <SolidColorBrush x:Key="GlyphBrush" Color="{Binding Source={StaticResource BlackColorBrush}, Path=Color}" />
+    <SolidColorBrush x:Key="GlyphMouseOver" Color="{Binding Source={StaticResource GrayBrush1}, Path=Color}" />
 
     <!-- Styles -->
 

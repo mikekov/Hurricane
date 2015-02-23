@@ -5,7 +5,7 @@
         xmlns:vm="clr-namespace:Hurricane.ViewModels"
         xmlns:ex="clr-namespace:Hurricane.Extensions"
         xmlns:userControls="clr-namespace:Hurricane.Views.UserControls"
-        Title="{DynamicResource Settings}" Height="500" Width="600" ResizeMode="CanResize"
+        Title="{DynamicResource Settings}" Height="540" Width="800" ResizeMode="CanResize"
         WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
         DataContext="{x:Static vm:SettingsViewModel.Instance}" GlowBrush="{DynamicResource AccentColorBrush}">
     <controls:MetroWindow.Resources>

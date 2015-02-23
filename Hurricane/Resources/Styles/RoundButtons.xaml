@@ -67,4 +67,33 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="RoundToggleButton2" BasedOn="{StaticResource RoundToggleButton}" TargetType="ToggleButton">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid>
+                        <Ellipse Fill="{DynamicResource WhiteBrush}" StrokeThickness="1.8" Stroke="{DynamicResource GrayBrush9}" x:Name="ellipse" />
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ellipse" Property="Stroke" Value="{DynamicResource GrayBrush6}" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="ellipse" Property="Fill" Value="{DynamicResource AccentColorBrush}" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True" />
+                                <Condition Property="IsPressed" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="ellipse" Property="Stroke" Value="{DynamicResource GrayBrush5}" />
+                            <Setter Property="Foreground" Value="{DynamicResource GrayBrush2}" />
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>
