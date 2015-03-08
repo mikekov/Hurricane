@@ -72,6 +72,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Exceptionless.Wpf.1.5.2121\lib\net45\Exceptionless.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="Gma.QrCodeNet.Encoding, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\Gma.QrCodeNet.Encoding.dll</HintPath>
+    </Reference>
     <Reference Include="GongSolutions.Wpf.DragDrop">
       <HintPath>..\packages\gong-wpf-dragdrop.0.1.4.3\lib\net40\GongSolutions.Wpf.DragDrop.dll</HintPath>
     </Reference>
@@ -126,6 +130,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AppCommunication\AppCommunicationManager.cs" />
+    <Compile Include="AppCommunication\AppCommunicationSettings.cs" />
+    <Compile Include="AppCommunication\Commander.cs" />
+    <Compile Include="AppCommunication\Commands\CommandBase.cs" />
+    <Compile Include="AppCommunication\Commands\FileTransferCommand.cs" />
+    <Compile Include="AppCommunication\Commands\MediaControlCommand.cs" />
+    <Compile Include="AppCommunication\Commands\PlaylistCommand.cs" />
+    <Compile Include="AppCommunication\Commands\Utilities.cs" />
+    <Compile Include="AppCommunication\CommunicationEventArgs\TCPConnectionChangedEventArgs.cs" />
+    <Compile Include="AppCommunication\ConnectionDeviceInfo.cs" />
+    <Compile Include="AppCommunication\StreamProvider.cs" />
+    <Compile Include="AppCommunication\TCPConnection.cs" />
+    <Compile Include="AppCommunication\TCPServer.cs" />
     <Compile Include="AppMainWindow\MahAppsExtensions\Dialogs\AdvancedInputDialog.xaml.cs">
       <DependentUpon>AdvancedInputDialog.xaml</DependentUpon>
     </Compile>
@@ -134,16 +151,14 @@
     </Compile>
     <Compile Include="AppMainWindow\Messages\ProgressDialog.cs" />
     <Compile Include="AppMainWindow\Messages\WindowDialogService.cs" />
-    <Compile Include="Designer\Converter\BrushFromThemeDataConverter.cs" />
-    <Compile Include="Designer\Converter\ColorFromThemeDataConverter.cs" />
-    <Compile Include="Designer\Data\BaseThemeData.cs" />
-    <Compile Include="Designer\Data\ColorThemeData.cs" />
+    <Compile Include="Designer\Data\ThemeData\AppThemeData.cs" />
+    <Compile Include="Designer\Data\ThemeData\AccentColorData.cs" />
     <Compile Include="Designer\Data\EditableThemePack.cs" />
     <Compile Include="Designer\Data\IPreviewable.cs" />
     <Compile Include="Designer\Data\ISaveable.cs" />
     <Compile Include="Designer\Data\PreviewData.cs" />
     <Compile Include="Designer\Data\ThemeBoolean.cs" />
-    <Compile Include="Designer\Data\DataThemeBase.cs" />
+    <Compile Include="Designer\Data\ThemeData\DataThemeBase.cs" />
     <Compile Include="Designer\Data\ThemeColor.cs" />
     <Compile Include="Designer\Data\ThemePack.cs" />
     <Compile Include="Designer\Data\ThemePack2.cs" />
@@ -180,6 +195,7 @@
     <Compile Include="Extensions\ControlDoubleClick.cs" />
     <Compile Include="Extensions\Converter\CollapsedOnNullValue.cs" />
     <Compile Include="Extensions\Converter\InvertBooleanConverter.cs" />
+    <Compile Include="Extensions\Converter\PlaylistInfoConverter.cs" />
     <Compile Include="Extensions\MahApps\TransitioningExtensions.cs" />
     <Compile Include="Extensions\TextBlockTextFormat.cs" />
     <Compile Include="Music\Playlist\CueSharp.cs" />
@@ -208,7 +224,7 @@
     <Compile Include="Extensions\Converter\TextWithHyperlinkParametersConverter.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Extensions\Converter\TimespanToMinutesSecounds.cs" />
+    <Compile Include="Extensions\Converter\TimespanToMinutesSeconds.cs" />
     <Compile Include="Extensions\GridViewSort.cs" />
     <Compile Include="Extensions\ImageFromFont.cs" />
     <Compile Include="Extensions\SliderExtensions.cs" />
@@ -336,13 +352,13 @@
     <Compile Include="Settings\SensitiveInformation.cs" />
     <Compile Include="Settings\SettingsBase.cs" />
     <Compile Include="Settings\Themes\Background\IApplicationBackground.cs" />
-    <Compile Include="Settings\Themes\Visual\BaseThemes\BaseTheme.cs" />
-    <Compile Include="Settings\Themes\Visual\BaseThemes\BaseThemeBase.cs" />
-    <Compile Include="Settings\Themes\Visual\BaseThemes\CustomBaseTheme.cs" />
-    <Compile Include="Settings\Themes\Visual\ColorThemes\AccentColorTheme.cs" />
+    <Compile Include="Settings\Themes\Visual\AppThemes\AppTheme.cs" />
+    <Compile Include="Settings\Themes\Visual\AppThemes\CustomAppTheme.cs" />
     <Compile Include="Settings\Themes\ApplicationThemeManager.cs" />
-    <Compile Include="Settings\Themes\Visual\ColorThemes\ColorThemeBase.cs" />
-    <Compile Include="Settings\Themes\Visual\ColorThemes\CustomColorTheme.cs" />
+    <Compile Include="Settings\Themes\Visual\AccentColors\AccentColorBase.cs" />
+    <Compile Include="Settings\Themes\Visual\AccentColors\CustomAccentColor.cs" />
+    <Compile Include="Settings\Themes\Visual\AppThemes\AppThemeBase.cs" />
+    <Compile Include="Settings\Themes\Visual\AccentColors\AccentColor.cs" />
     <Compile Include="Settings\Themes\Visual\ThemeBase.cs" />
     <Compile Include="Settings\Themes\ApplicationDesign.cs" />
     <Compile Include="Settings\UpdateService.cs" />
@@ -357,6 +373,7 @@
     <Compile Include="Utilities\Native\RECT.cs" />
     <Compile Include="Utilities\Native\WINDOWPLACEMENT.cs" />
     <Compile Include="Utilities\Native\UnsafeNativeMethods.cs" />
+    <Compile Include="Utilities\PasswordGenerator.cs" />
     <Compile Include="Utilities\RegistryExtensions.cs" />
     <Compile Include="Utilities\UIHelper.cs" />
     <Compile Include="Utilities\WindowHelper.cs" />
@@ -367,6 +384,9 @@
     </Compile>
     <Compile Include="Views\Test\PositionTestWindow.xaml.cs">
       <DependentUpon>PositionTestWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Test\TestWindow.xaml.cs">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Tools\LanguageCreatorWindow.xaml.cs">
       <DependentUpon>LanguageCreatorWindow.xaml</DependentUpon>
@@ -409,9 +429,6 @@
     </Compile>
     <Compile Include="Views\UserControls\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Test\TestWindow.xaml.cs">
-      <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TrackImportWindow.xaml.cs">
       <DependentUpon>TrackImportWindow.xaml</DependentUpon>
@@ -477,6 +494,10 @@
     <Page Include="Notification\Views\NotificationTopWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Languages\Hurricane.nl-nl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\Languages\Hurricane.fi-fi.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -626,6 +647,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Test\TestWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Tools\LanguageCreatorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -711,10 +736,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\SettingsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Test\TestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -815,6 +836,8 @@
     </Content>
     <Resource Include="Resources\App\Icon.ico" />
     <Resource Include="Resources\App\AudioVisualisation.png" />
+    <Resource Include="Resources\App\LanguageCreator.png" />
+    <Resource Include="Resources\Languages\Icons\nl.png" />
     <Content Include="youtube-dl.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

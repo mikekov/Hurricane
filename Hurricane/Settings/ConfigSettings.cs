@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Xml.Serialization;
+using Hurricane.AppCommunication;
 using Hurricane.Music.Download;
 using Hurricane.Notification;
 using Hurricane.Settings.Themes;
@@ -77,18 +78,26 @@ namespace Hurricane.Settings
         public bool TrimTrackname { get; set; }
         public DownloadManager Downloader { get; set; }
 
+        //App
+        public AppCommunicationSettings AppCommunicationSettings { get; set; }
+        [XmlIgnore]
+        public AppCommunicationManager AppCommunicationManager { get; set; }
+
         private List<LanguageInfo> _languages;
         [XmlIgnore]
         public List<LanguageInfo> Languages
         {
             get
             {
+                //Language codes: http://www.lingoes.net/en/translator/langcode.htm
                 return _languages ?? (_languages = new List<LanguageInfo>
                 {
                     new LanguageInfo("Deutsch", "/Resources/Languages/Hurricane.de-de.xaml",
                         new Uri("/Resources/Languages/Icons/de.png", UriKind.Relative), "Alkaline", "de"),
                     new LanguageInfo("English", "/Resources/Languages/Hurricane.en-us.xaml",
                         new Uri("/Resources/Languages/Icons/us.png", UriKind.Relative), "Alkaline", "en"),
+                    new LanguageInfo("Nederlands", "/Resources/Languages/Hurricane.nl-nl.xaml",
+                        new Uri("/Resources/Languages/Icons/nl.png", UriKind.Relative), "DrawCase", "nl"),
                     new LanguageInfo("Suomi", "/Resources/Languages/Hurricane.fi-fi.xaml",
                         new Uri("/Resources/Languages/Icons/fi.png", UriKind.Relative), "Väinämö Vettenranta", "fi")
                 });
@@ -114,8 +123,6 @@ namespace Hurricane.Settings
             DownloadAlbumCoverQuality = ImageQuality.Maximum;
             SaveCoverLocal = false;
             TrimTrackname = true;
-            //ApiIsEnabled = false;
-            //ApiPort = 10898; //10.08.1998
             ShowArtistAndTitle = true;
             SoundOutMode = CSCore.SoundOut.WasapiOut.IsSupportedOnCurrentPlatform ? SoundOutMode.WASAPI : SoundOutMode.DirectSound;
             Latency = 100;
@@ -127,11 +134,20 @@ namespace Hurricane.Settings
             Downloader = new DownloadManager();
             TabControlTransition = TransitionType.Left;
             ShowProgressInTaskbar = true;
+            AppCommunicationSettings = new AppCommunicationSettings();
+            AppCommunicationSettings.SetStandard();
         }
 
         public ConfigSettings()
         {
             SetStandardValues();
+        }
+
+        public void LoadAppCommunication()
+        {
+            if (AppCommunicationManager == null)
+                AppCommunicationManager = new AppCommunicationManager(AppCommunicationSettings);
+            if (AppCommunicationSettings.IsEnabled) AppCommunicationManager.Start();
         }
 
         private ResourceDictionary _lastLanguage;
@@ -161,11 +177,10 @@ namespace Hurricane.Settings
                 {
                     var deserializer = new XmlSerializer(typeof(ConfigSettings));
                     result = (ConfigSettings)deserializer.Deserialize(reader);
-                    result.LoadLanguage();
                 }
             }
-
-            ApplicationThemeManager.Instance.Apply(result.ApplicationDesign);
+            result.LoadLanguage();
+            result.LoadAppCommunication();
             return result;
         }
 
