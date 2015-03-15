@@ -8,7 +8,6 @@ using System.Windows;
 using System.Windows.Threading;
 using Exceptionless;
 using Exceptionless.Extensions;
-using Hurricane.Music.Track.WebApi.YouTubeApi.DataClasses;
 using Hurricane.Notification.WindowMessages;
 using Hurricane.Settings;
 using Hurricane.Settings.RegistryManager;
@@ -31,6 +30,7 @@ namespace Hurricane
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            HurricaneSettings.Instance.Load();
 
             var openfile = false;
             if (Environment.GetCommandLineArgs().Length > 1)
@@ -40,14 +40,14 @@ namespace Hurricane
                     case "/test":
                         var view = new TestWindow();
                         view.Show();
-                        return;
+                        break;
                     case "/language_creator":
                         var languageCreator = new LanguageCreatorWindow();
                         languageCreator.ShowDialog();
                         return;
                     case "/designer":
                         var resource = new ResourceDictionary { Source = new Uri("/Resources/Themes/Cyan.xaml", UriKind.Relative) };
-                        ApplicationThemeManager.Instance.LoadResource("colortheme", resource);
+                        ApplicationThemeManager.Instance.LoadResource("accentcolor", resource);
                         var designer = new Designer.DesignerWindow();
                         designer.ShowDialog();
                         return;
@@ -119,12 +119,11 @@ namespace Hurricane
 #if !DEBUG
             EnableExteptionless();
 #endif
-
             //We remove the two last resource dictionarys so we can skip the annyoing ThemeManagers/current theme detections, ...
             //HurricaneSettings will load the needed resources
-            Resources.MergedDictionaries.Remove(Resources.MergedDictionaries.Last());
-            Resources.MergedDictionaries.Remove(Resources.MergedDictionaries.Last());
-            HurricaneSettings.Instance.Load();
+            Resources.MergedDictionaries.RemoveAt(Resources.MergedDictionaries.Count -2);
+            Resources.MergedDictionaries.RemoveAt(Resources.MergedDictionaries.Count - 2);
+            ApplicationThemeManager.Instance.Apply(HurricaneSettings.Instance.Config.ApplicationDesign);
 
             MainWindow window = new MainWindow();
 

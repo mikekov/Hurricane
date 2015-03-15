@@ -275,7 +275,7 @@ namespace Hurricane.Music
             {
                 SoundSource = SoundSource.ChangeSampleRate(44100);
             }
-            else if (Settings.SampleRate > -1) { SoundSource.ChangeSampleRate(Settings.SampleRate); }
+            else if (Settings.SampleRate > -1) { SoundSource = SoundSource.ChangeSampleRate(Settings.SampleRate); }
             SoundSource = SoundSource
                 .AppendSource(Equalizer.Create10BandEqualizer, out equalizer)
                 .AppendSource(x => new SingleBlockNotificationStream(x), out _singleBlockNotificationStream)
@@ -414,13 +414,13 @@ namespace Hurricane.Music
             OnPropertyChanged("Position");
             OnPropertyChanged("CurrentTrackPosition");
             OnPropertyChanged("CurrentTrackTimeLeft");
-            var secounds = (int)CurrentTrackPosition.TotalSeconds;
-            var totalsecounds = (int)CurrentTrackLength.TotalSeconds;
+            var seconds = (int)CurrentTrackPosition.TotalSeconds;
+            var totalseconds = (int)CurrentTrackLength.TotalSeconds;
             if (PositionChanged != null)
-                Application.Current.Dispatcher.Invoke(() => PositionChanged(this, new PositionChangedEventArgs(secounds, totalsecounds)));
-            if (Settings.IsCrossfadeEnabled && totalsecounds - Settings.CrossfadeDuration > 6 && !_crossfade.IsCrossfading && totalsecounds - secounds < Settings.CrossfadeDuration)
+                Application.Current.Dispatcher.Invoke(() => PositionChanged(this, new PositionChangedEventArgs(seconds, totalseconds)));
+            if (Settings.IsCrossfadeEnabled && totalseconds - Settings.CrossfadeDuration > 6 && !_crossfade.IsCrossfading && totalseconds - seconds < Settings.CrossfadeDuration)
             {
-                _fader.OutDuration = totalsecounds - secounds;
+                _fader.OutDuration = totalseconds - seconds;
                 _crossfade.FadeOut(Settings.CrossfadeDuration, _soundOut);
                 _simpleNotificationSource.BlockRead -= notifysource_BlockRead;
                 _singleBlockNotificationStream.SingleBlockRead -= notificationSource_SingleBlockRead;

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Windows;
 using CSCore.SoundOut;
 using Hurricane.Music;
@@ -12,7 +14,6 @@ using Hurricane.Settings.RegistryManager;
 using Hurricane.Settings.Themes;
 using Hurricane.Settings.Themes.Background;
 using Hurricane.Settings.Themes.Visual;
-using Hurricane.Settings.Themes.Visual.BaseThemes;
 using Hurricane.ViewModelBase;
 using Microsoft.Win32;
 using WPFFolderBrowser;
@@ -160,22 +161,22 @@ namespace Hurricane.ViewModels
             }
         }
 
-        public IBaseTheme SelectedBaseTheme
+        public IAppTheme SelectedAppTheme
         {
-            get { return Config.ApplicationDesign.BaseTheme; }
+            get { return Config.ApplicationDesign.AppTheme; }
             set
             {
-                Config.ApplicationDesign.BaseTheme = value;
+                Config.ApplicationDesign.AppTheme = value;
                 ApplyTheme();
             }
         }
 
-        public IColorTheme SelectedColorTheme
+        public IAccentColor SelectedAccentColor
         {
-            get { return Config.ApplicationDesign.ColorTheme; }
+            get { return Config.ApplicationDesign.AccentColor; }
             set
             {
-                Config.ApplicationDesign.ColorTheme = value;
+                Config.ApplicationDesign.AccentColor = value;
                 ApplyTheme();
             }
         }
@@ -247,6 +248,56 @@ namespace Hurricane.ViewModels
         {
             get { return ApplicationThemeManager.Instance.Skins.Select(s => s.Name); }
         }
+
+        #endregion
+
+        #region App
+
+        public string LocalIPAddress
+        {
+            get
+            {
+                return Dns.GetHostAddresses(Dns.GetHostName())
+                    .First(a => a.AddressFamily == AddressFamily.InterNetwork).ToString();
+            }
+        }
+
+        public string AppConnectionString
+        {
+            get
+            {
+                return string.Format("{0};{1};{2}", LocalIPAddress, Config.AppCommunicationSettings.Port,
+                    Config.AppCommunicationSettings.Password);
+            }
+        }
+
+        public bool AppIsEnabled
+        {
+            get { return Config.AppCommunicationSettings.IsEnabled; }
+            set
+            {
+                if (value == Config.AppCommunicationSettings.IsEnabled) return;
+                Config.AppCommunicationSettings.IsEnabled = value;
+                if (value)
+                {
+                    try
+                    {
+                        Config.AppCommunicationManager.Start();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        Config.AppCommunicationSettings.IsEnabled = false;
+                    }
+                }
+                else
+                {
+                    Config.AppCommunicationManager.Stop();
+                }
+                OnPropertyChanged();
+            }
+        }
+        
 
         #endregion
 

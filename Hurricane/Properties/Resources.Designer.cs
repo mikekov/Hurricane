@@ -62,6 +62,23 @@ namespace Hurricane.Properties {
         
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die &lt;ResourceDictionary xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+        ///                    xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot; xmlns:system=&quot;clr-namespace:System;assembly=mscorlib&quot; xmlns:options=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation/options&quot;&gt;
+        ///
+        ///	&lt;Color x:Key=&quot;LightColor&quot;&gt;{LightColor}&lt;/Color&gt;
+        ///    &lt;Color x:Key=&quot;BrightColor&quot;&gt;{BrightColor}&lt;/Color&gt;
+        ///    &lt;Color x:Key=&quot;NormalColor&quot;&gt;{NormalColor}&lt;/Color&gt;
+        ///    &lt;Color x:Key=&quot;DarkColor&quot;&gt;{DarkColor}&lt;/Color&gt;
+        ///
+        ///  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        /// </summary>
+        internal static string AccentColor {
+            get {
+                return ResourceManager.GetString("AccentColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;ResourceDictionary xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
         ///                    xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
         ///                    xmlns:options=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation/options&quot;&gt;
         ///
@@ -73,56 +90,9 @@ namespace Hurricane.Properties {
         ///    &lt;Color x:Key=&quot;Gray7&quot;&gt;{Gray7}&lt;/Color&gt;
         ///    &lt;Color  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
-        internal static string BaseTheme {
+        internal static string AppTheme {
             get {
-                return ResourceManager.GetString("BaseTheme", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;ResourceDictionary xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
-        ///                    xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot; xmlns:system=&quot;clr-namespace:System;assembly=mscorlib&quot; xmlns:options=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation/options&quot;&gt;
-        ///
-        ///	&lt;Color x:Key=&quot;LightColor&quot;&gt;{LightColor}&lt;/Color&gt;
-        ///    &lt;Color x:Key=&quot;BrightColor&quot;&gt;{BrightColor}&lt;/Color&gt;
-        ///    &lt;Color x:Key=&quot;NormalColor&quot;&gt;{NormalColor}&lt;/Color&gt;
-        ///    &lt;Color x:Key=&quot;DarkColor&quot;&gt;{DarkColor}&lt;/Color&gt;
-        ///
-        ///  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string ColorTheme {
-            get {
-                return ResourceManager.GetString("ColorTheme", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;ResourceDictionary xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
-        ///                    xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
-        ///                    xmlns:system=&quot;clr-namespace:System;assembly=mscorlib&quot;&gt;
-        ///    &lt;system:String x:Key=&quot;DateFormat&quot;&gt;dd.MM.yyyy HH:mm&lt;/system:String&gt;
-        ///    &lt;system:String x:Key=&quot;Search&quot;&gt;Suche...&lt;/system:String&gt;
-        ///    &lt;system:String x:Key=&quot;PreviousTrack&quot;&gt;Vorheriger Track&lt;/system:String&gt;
-        ///    &lt;system:String x:Key=&quot;NextTrack&quot;&gt;Nächster Track&lt;/system:String [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string Hurricane_de_de {
-            get {
-                return ResourceManager.GetString("Hurricane_de_de", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;ResourceDictionary xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
-        ///                    xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
-        ///                    xmlns:system=&quot;clr-namespace:System;assembly=mscorlib&quot;&gt;
-        ///    &lt;system:String x:Key=&quot;DateFormat&quot;&gt;MM.dd.yyyy hh:mm tt&lt;/system:String&gt;
-        ///    &lt;system:String x:Key=&quot;Search&quot;&gt;Search...&lt;/system:String&gt;
-        ///    &lt;system:String x:Key=&quot;PreviousTrack&quot;&gt;Previous track&lt;/system:String&gt;
-        ///    &lt;system:String x:Key=&quot;NextTrack&quot;&gt;Next track&lt;/system:String&gt;        /// [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string Hurricane_en_us {
-            get {
-                return ResourceManager.GetString("Hurricane_en_us", resourceCulture);
+                return ResourceManager.GetString("AppTheme", resourceCulture);
             }
         }
     }
