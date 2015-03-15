@@ -191,16 +191,21 @@
     <Compile Include="DragDrop\PlaylistListDropHandler.cs" />
     <Compile Include="DragDrop\TrackListDropHandler.cs" />
     <Compile Include="Extensions\AnimatedFrameworkElement.cs" />
-    <Compile Include="Extensions\AnimatedListView.cs" />
-    <Compile Include="Extensions\AnimatedStackPanel.cs" />
+    <Compile Include="Extensions\Controls\AnimatedListView.cs" />
+    <Compile Include="Extensions\Controls\AnimatedStackPanel.cs" />
     <Compile Include="Extensions\AudioVisualisationExtensions.cs" />
     <Compile Include="Extensions\ComboBoxItemTemplateChooser.cs" />
     <Compile Include="Extensions\ControlDoubleClick.cs" />
     <Compile Include="Extensions\Converter\CollapsedOnNullValue.cs" />
     <Compile Include="Extensions\Converter\InvertBooleanConverter.cs" />
     <Compile Include="Extensions\Converter\PlaylistInfoConverter.cs" />
+    <Compile Include="Extensions\Converter\VolumeToVector.cs" />
     <Compile Include="Extensions\MahApps\TransitioningExtensions.cs" />
+    <Compile Include="Extensions\Controls\SliderWhichMakesMoves.cs" />
     <Compile Include="Extensions\TextBlockTextFormat.cs" />
+    <Compile Include="Extensions\Controls\VolumeIcon.xaml.cs">
+      <DependentUpon>VolumeIcon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Music\Playlist\CueSharp.cs" />
     <Compile Include="Music\Playlist\ImportCueSheet.cs" />
     <Compile Include="Music\Playlist\ImportM3uPlaylist.cs" />
@@ -229,9 +234,7 @@
     </Compile>
     <Compile Include="Extensions\Converter\TimespanToMinutesSeconds.cs" />
     <Compile Include="Extensions\GridViewSort.cs" />
-    <Compile Include="Extensions\ImageFromFont.cs" />
-    <Compile Include="Extensions\SliderExtensions.cs" />
-    <Compile Include="Extensions\VectorMenuItem.cs" />
+    <Compile Include="Extensions\Controls\VectorMenuItem.cs" />
     <Compile Include="Extensions\ListViewLayoutManager\ConverterGridViewColumn.cs" />
     <Compile Include="Extensions\ListViewLayoutManager\FixedColumn.cs" />
     <Compile Include="Extensions\ListViewLayoutManager\ImageGridViewColumn.cs" />
@@ -240,7 +243,7 @@
     <Compile Include="Extensions\ListViewLayoutManager\ProportionalColumn.cs" />
     <Compile Include="Extensions\ListViewLayoutManager\RangeColumn.cs" />
     <Compile Include="Extensions\TaskbarItemInfoEx.cs" />
-    <Compile Include="Extensions\TrackImagePreseter.xaml.cs">
+    <Compile Include="Extensions\Controls\TrackImagePreseter.xaml.cs">
       <DependentUpon>TrackImagePreseter.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\ItemsControlExtensions.cs" />
@@ -269,16 +272,16 @@
     <Compile Include="Music\Data\SoundOutRepresenter.cs" />
     <Compile Include="Music\MusicEqualizer\EqualizerBand.cs" />
     <Compile Include="Music\Playlist\IPlaylist.cs" />
-    <Compile Include="Music\MusicDatabase\EventArgs\EqualizerChangedEventArgs.cs" />
+    <Compile Include="Music\CustomEventArgs\EqualizerChangedEventArgs.cs" />
     <Compile Include="Music\MusicEqualizer\EqualizerSettings.cs" />
-    <Compile Include="Music\MusicDatabase\EventArgs\PlaybackStateChangedEventArgs.cs" />
-    <Compile Include="Music\MusicDatabase\EventArgs\PositionChangedEventArgs.cs" />
-    <Compile Include="Music\MusicDatabase\EventArgs\TrackImportProgressChanged.cs" />
-    <Compile Include="Music\MusicDatabase\artist.cs" />
-    <Compile Include="Music\MusicDatabase\LastfmAPI.cs" />
-    <Compile Include="Music\MusicDatabase\lfm.cs" />
-    <Compile Include="Music\MusicDatabase\MusicCoverManager.cs" />
-    <Compile Include="Music\MusicDatabase\track.cs" />
+    <Compile Include="Music\CustomEventArgs\PlaybackStateChangedEventArgs.cs" />
+    <Compile Include="Music\CustomEventArgs\PositionChangedEventArgs.cs" />
+    <Compile Include="Music\CustomEventArgs\TrackImportProgressChanged.cs" />
+    <Compile Include="Music\MusicCover\APIs\Lastfm\artist.cs" />
+    <Compile Include="Music\MusicCover\APIs\Lastfm\LastfmAPI.cs" />
+    <Compile Include="Music\MusicCover\APIs\Lastfm\lfm.cs" />
+    <Compile Include="Music\MusicCover\MusicCoverManager.cs" />
+    <Compile Include="Music\MusicCover\APIs\Lastfm\track.cs" />
     <Compile Include="Music\MusicManagerCommands.cs" />
     <Compile Include="Music\Playlist\PlaylistBase.cs" />
     <Compile Include="Music\QueueManager.cs" />
@@ -435,6 +438,9 @@
     <Compile Include="Views\UserControls\EqualizerView.xaml.cs">
       <DependentUpon>EqualizerView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\KeyboardShortcutsView.xaml.cs">
+      <DependentUpon>KeyboardShortcutsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
@@ -483,7 +489,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Extensions\TrackImagePreseter.xaml">
+    <Page Include="Extensions\Controls\TrackImagePreseter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Extensions\Controls\VolumeIcon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -700,7 +710,6 @@
     <Compile Include="Extensions\Converter\FalseOnEmptyString.cs" />
     <Compile Include="Extensions\Converter\ToggleImageConverter.cs" />
     <Compile Include="Extensions\Converter\TrueFalseValueConverter.cs" />
-    <Compile Include="Extensions\Converter\VolumeToImage.cs" />
     <Compile Include="Utilities\ImageHelper.cs" />
     <Compile Include="MagicArrow\MagicArrow.cs" />
     <Compile Include="MagicArrow\MagicArrowWindow.xaml.cs">
@@ -712,7 +721,7 @@
     <Compile Include="Utilities\HookManager\HookManager.Windows.cs" />
     <Compile Include="Utilities\HookManager\MouseEventExtArgs.cs" />
     <Compile Include="Music\CSCoreEngine.cs" />
-    <Compile Include="Music\MusicDatabase\EventArgs\TrackChangedEventArgs.cs" />
+    <Compile Include="Music\CustomEventArgs\TrackChangedEventArgs.cs" />
     <Compile Include="Music\MusicManager.cs" />
     <Compile Include="Music\Playlist\NormalPlaylist.cs" />
     <Compile Include="Music\Visualization\SampleAnalyser.cs" />
@@ -752,6 +761,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\EqualizerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\KeyboardShortcutsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -823,11 +836,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\MediaIcons\Advanced\Volume\loud.png" />
-    <Resource Include="Resources\MediaIcons\Advanced\Volume\medium.png" />
-    <Resource Include="Resources\MediaIcons\Advanced\Volume\mute.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\MediaIcons\ThumbButtons\backward.png" />
     <Resource Include="Resources\MediaIcons\ThumbButtons\forward.png" />
     <Resource Include="Resources\MediaIcons\ThumbButtons\pause.png" />
@@ -841,11 +849,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\GUI\updater.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\MediaIcons\Advanced\Volume\loud_light.png" />
-    <Resource Include="Resources\MediaIcons\Advanced\Volume\medium_light.png" />
-    <Resource Include="Resources\MediaIcons\Advanced\Volume\mute_light.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Languages\Icons\fi.png" />
@@ -862,7 +865,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Music\MusicCover\APIs\Amazon\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AudioVisualisation\AudioVisualisation.csproj">
       <Project>{3374a3e8-73da-48e8-bf53-5574a714ed8b}</Project>

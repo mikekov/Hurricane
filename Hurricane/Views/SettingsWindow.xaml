@@ -16,6 +16,6 @@
         </ResourceDictionary>
     </controls:MetroWindow.Resources>
     <Grid>
-        <userControls:SettingsView ShowAbout="False" Margin="0" />
+        <userControls:SettingsView Margin="0" />
     </Grid>
 </controls:MetroWindow>
